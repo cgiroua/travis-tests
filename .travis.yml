@@ -7,13 +7,8 @@ before_script:
   - docker login -u="$DOCKERHUB_USER" -p="$DOCKERHUB_PASS"
 
 script:
-  #- printenv
+  - printenv
   - docker build -t cgiroua/test-repo .
 
 after_success:
-  if [[ \"$TRAVIS_BRANCH\" == \"master\" ]] && [[ \"$TRAVIS_COMMIT_MESSAGE\" != *--skip-push* ]]; then
-    docker push cgiroua/test-repo
-    echo 'Image pushed'
-  else
-    echo 'Image push skipped'
-  fi
+ - "[[ \"$TRAVIS_BRANCH\" == \"master\" ]] && [[ \"$TRAVIS_COMMIT_MESSAGE\" != *--skip-push* ]] && docker push cgiroua/test-repo"
