@@ -8,8 +8,7 @@ before_script:
 
 script:
   - printenv
-  - docker build -t cgiroua/test-repo
+  - docker build -t cgiroua/test-repo .
 
 after_success:
- - [[ "$TRAVIS_BRANCH" == "master" ]] && [[ "$TRAVIS_COMMIT_MESSAGE" != *--skip-push* ]] && docker push cgiroua/test-repo
-  
+ - "[[ \"$TRAVIS_BRANCH\" == \"master\" ]] && [[ \"$TRAVIS_COMMIT_MESSAGE\" != *--skip-push* ]] && docker push cgiroua/test-repo"
