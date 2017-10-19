@@ -3,12 +3,10 @@ sudo: required
 services:
   - docker
 
-before_script:
-  - docker login -u="$DOCKERHUB_USER" -p="$DOCKERHUB_PASS"
-
 script:
   - printenv
   - docker build -t cgiroua/test-repo .
+  - echo "Nonsense"
 
 after_success:
- - "[[ \"$TRAVIS_BRANCH\" == \"master\" ]] && [[ \"$TRAVIS_COMMIT_MESSAGE\" != *--skip-push* ]] && docker push cgiroua/test-repo"
+ - "test $TRAVIS_PULL_REQUEST = 'false' && test $TRAVIS_BRANCH = 'master' && [[ \"$TRAVIS_COMMIT_MESSAGE\" != *--skip-push* ]] && docker login -u=\"$DOCKERHUB_USER\" -p=\"$DOCKERHUB_PASS\" && docker push cgiroua/test-repo"
