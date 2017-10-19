@@ -5,6 +5,7 @@ services:
 
 script:
   - printenv
+  - echo "Change"
   - docker build -t cgiroua/test-repo .
 
 after_success:
