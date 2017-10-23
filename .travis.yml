@@ -3,10 +3,18 @@ sudo: required
 services:
   - docker
 
+env:
+  - SLACK_COMMIT_URL="<https://github.com/${TRAVIS_REPO_SLUG}/commit/${TRAVIS_COMMIT}|$TRAVIS_COMMIT>"
+
 script:
+  - curl -X POST -d "{'username': 'Exchange-api', 'text': 'Travis tests: Running for commit $SLACK_COMMIT_URL', 'icon_emoji': ':moneybag:'}"
   - printenv
   - echo "Test Change"
   - docker build -t cgiroua/test-repo .
 
 after_success:
- - "{ test $TRAVIS_PULL_REQUEST = 'false' && test $TRAVIS_BRANCH = 'master' && [[ ! \"$TRAVIS_COMMIT_MESSAGE\" =~ \"--skip-push\" ]]  && docker login -u=\"$DOCKERHUB_USER\" -p=\"$DOCKERHUB_PASS\" && docker push cgiroua/test-repo; } || echo 'Skipping the push'"
+  - curl -X POST -d "{'username': 'Exchange-api', 'text': 'Travis tests: :+1: Successful for commit $SLACK_COMMIT_URL, pushing image', 'icon_emoji': ':moneybag:'}"
+  - "{ test $TRAVIS_PULL_REQUEST = 'false' && test $TRAVIS_BRANCH = 'master' && [[ ! \"$TRAVIS_COMMIT_MESSAGE\" =~ \"--skip-push\" ]]  && docker login -u=\"$DOCKERHUB_USER\" -p=\"$DOCKERHUB_PASS\" && docker push cgiroua/test-repo; } || echo 'Skipping the push'"
+
+after_failure:
+  - curl -X POST -d "{'username': 'Exchange-api', 'text': 'Travis tests: :-1: Failed for commit $SLACK_COMMIT_URL', 'icon_emoji': ':moneybag:'}"
