@@ -9,7 +9,7 @@ env:
 script:
   - "curl -X POST -d \"{'username': 'Exchange-api', 'text': '$SLACK_BUILD_URL running for commit $SLACK_COMMIT_URL', 'icon_emoji': ':moneybag:'}\" $SLACK_WEBHOOK"
   - printenv
-  - echo "Test Change"
+  - ls /blah/foo/bar
   - docker build -t cgiroua/test-repo .
 
 after_success:
