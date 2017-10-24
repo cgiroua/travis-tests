@@ -2,7 +2,6 @@ sudo: required
 services:
 - docker
 script:
-- printenv
 - docker build -t cgiroua/test-repo .
 notifications:
   slack:
