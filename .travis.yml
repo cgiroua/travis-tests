@@ -1,15 +1,14 @@
 sudo: required
 services:
 - docker
-env: PUSHING=''
 script:
-- test $TRAVIS_PULL_REQUEST = 'false' && test $TRAVIS_BRANCH = 'master' && [[ ! "$TRAVIS_COMMIT_MESSAGE"
-  =~ "--skip-push" ]]  && export PUSHING=", pushing image"
 - printenv
 - docker build -t cgiroua/test-repo .
 notifications:
   slack:
     secure: kfsSLifi3fyGDVIX89+rSsl4CbOGLpcafxzrHZcDGrxNmYcI6waQPeASxuubuRqMXDaDH9phtAQDAJeT9CHeuJqmMmCWUSoJuHhYKyD5aWMvFLaatHO+5TL/WTynY631Y3DTSTplnphotyosJ5Sqw7Q996nhwrlD3qovIFZL/e62x3hsEnQYphJ54Wx5TqHv5mzT3D7t9jEJbG2u2Cj5aIPfTcLl8Q7t8cDqLSvvNzf0rIQdRFq4LMzhrwGdWfaizi5xbWqn66kOcAmgzEWa2tmddssJTKGpDOQm13Vnr76+hrWQLcOaYirE6+zDIGjtUYYB5WSIBIekI0vG3hSgoB/8CbjjBE+KAqxpsIHXuP88sofmCaoReFoRfkjfT0RO1zgtqWP1Q9lZldmR5aO5moWi+vw25qUGrMxTd4RM4yCnnWnKsbphuk2ePDWsMu5et6PdbaWmmqStWsxi1YnAKfupg41zA5XzNBcAeBaVKWQJ329XGhEfVD/RIFgLEWuUiwIG2i9Y0X88oN7KvB/jjAr4raLjLEvTZKjkl0pfvJ6ZTuOhenw/UlLbS1XDEn3F1JaAVRTVpZu5/vKU3AgajnafOxdd6+ZsT3+I1rN0IiPy0OdsxAsQ/hCM5g+EBYlniT8bth8vgR6Y9sRg+/mg1fv61xPA522sTTCF7YXmZ0U=
 after_success:
-- test "$PUSHING" == ", pushing image" && docker login -u="$DOCKERHUB_USER" -p="$DOCKERHUB_PASS"
-  && docker push cgiroua/test-repo
+- "{ test $TRAVIS_PULL_REQUEST = 'false' && test $TRAVIS_BRANCH = 'master' 
+  && [[ ! \"$TRAVIS_COMMIT_MESSAGE\" =~ \"--skip-push\" ]]  && docker login 
+  -u=\"$SUMMIT_USER\" -p=\"$SUMMIT_PASS\" && docker push cgiroua/test-repo; }
+  || echo \"Skipping push\""
