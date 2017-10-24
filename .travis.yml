@@ -1,19 +1,23 @@
 sudo: required
 
 services:
-- docker
+  - docker
 
 notifications:
   slack:
     secure: A+Id8B+KPh11fp0pY53ul6PMeE1SNGWL/bvczKrK32vcWrtNYfhu4reAi8KuFfZy5IxneID+fF+J7xjVrQX5h1W/wnWEgGKbnOxCvosGBVdqYb7YIvobzW0kH8qq9lXQ1GwejJEsuZazxw/xLKfh1yb0QuSzAVNDwWG9fumhx/+VfHKbt1Tvd3BnIEcBROE0XN6xCB2caoxtzKxIw4hFv4KBkY8kicoUP1lnp468tZU4ezfRV/B4yCngQffyiuOR9AKOfhgcbHYxoRIMVe6fFWDPKwG29O0H1mn/HkBBNTrMOVrF4HeqFNW19kf2SeOH88SxsmlgOs0ynLL+mDENZcZDZHbg9pl1C2QRB7ugDl/qEdf6Hg7brl6kRumhIbGVZrVOOCcfNShpgzAzWIZnCiBReQVnl4aCX21FmFqQ1xbdinnWw1+sOzuI7x5GBZWG/J8VrtljyRZR2WLTUPyn01ns4kB9k6s5HrFS7q+pvpR8fjAk24YXdW8J4vjvvdj5ytmskL9AUCIgZXv39EPLc4ouCqF7VnmgnH6htHGoL4jmd9LGNRgULRTUChVHZ8ezUbB/+0/IbfYXR74uDw7wZGTeNlbFM3BsIJu/TLIW33O0V+ejxj2KEw4VoYd/2jyBJr5BSPAipgE6fgX5KbCr2oOVFk2l8INkJHUs59lAm/s= 
+    template:
+      - "Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository}@%{branch} by %{author} %{result} in %{duration}${PUSHING}"
+
 
 env: 
+  PUSHING=''
 
 script:
-- printenv
-- docker build -t cgiroua/test-repo .
+  - 'test $TRAVIS_PULL_REQUEST = ''false'' && test $TRAVIS_BRANCH = ''master'' &&
+  [[ ! "$TRAVIS_COMMIT_MESSAGE" =~ "--skip-push" ]]  && export PUSHING=", pushing image"'
+  - printenv
+  - docker build -t cgiroua/test-repo .
 
 after_success:
-- '{ test $TRAVIS_PULL_REQUEST = ''false'' && test $TRAVIS_BRANCH = ''master'' &&
-  [[ ! "$TRAVIS_COMMIT_MESSAGE" =~ "--skip-push" ]]  && docker login -u="$DOCKERHUB_USER"
-  -p="$DOCKERHUB_PASS" && docker push cgiroua/test-repo; } || echo ''Skipping push'''
+  - 'test "$PUSHING" == ", pushing image" && docker login -u="$DOCKERHUB_USER" -p="$DOCKERHUB_PASS" && docker push cgiroua/test-repo'
