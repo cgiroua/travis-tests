@@ -15,3 +15,4 @@ deploy:
   file: test.txt
   on:
     repo: cgiroua/travis-tests
+    tags: true
