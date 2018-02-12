@@ -4,7 +4,7 @@ services:
 script:
 - printenv
 - docker build -t cgiroua/test-repo .
-- echo "1.1" > test.txt
+- echo "1.2" > test.txt
 - pwd && ls
 deploy:
   provider: releases
