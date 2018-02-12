@@ -12,7 +12,8 @@ deploy:
   provider: releases
   api_key:
     secure: 0vGoyBhZ9BSI8h0KwBE4PJ+lclQgWyUCcjtfa523282HvbYhouCzhiSQKZnmcVOzrnlH5zP9l8/52Rbl4ttrVGmwId0Y6yiOzlxrZesAkhgiAS5JbCSf0d4HnjUrjvr9jI3T+TFZiWwR+WGdAMFSqQXjYZK8yfugSgkvYw2peYuYeLW87jz7WL4le3sz/PS1i5Yue+H3DzbN2HvRNUgsLFek+kCFL86ibPZCutpmqbV57JFK5C98dGHx/pBmia+KlTd8aSecZX5zXLHMD04bm1/2Mi5m3jz1wg4bS1HIXZBkn/h1TqvXUuQ3q50R87Xfr5YQSINkHGWnyF1Elz8lwiMWcwbLfalyOdtT6eSbJbwGkkvt0/IkObweO5D/tdoDyJIyEoGIi7UBHD0ocJPR+9d6a5BhpfsQonNv/t5y6Ab3sM1uvxc740oXXqkp6iap790fYgwag9qFPszVTcwgGG6xRaw2r02ahCipT1eKYMwQK+2I0RvXqIf4RCfu8efz4gCPUEDYKTd4CJwc9HKRiFkMByONwC/2AorxIzCAKjf4wM+ZJR2aNfAkFLkiQuimQSPU+WuMLgKLR0qvEPVC8T+dhFgPPpJHSjEjA5OIrVDn/UOneNdpgML7HLX+OKoQub+unYKo9vuTKCteqG6ygVWqgvpWVp/j0fbOdpIlHIc=
-  file: test.txt
+  artifact: test.txt
+  draft: false
   skip_cleanup: true
   on:
     repo: cgiroua/travis-tests
