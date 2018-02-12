@@ -4,7 +4,7 @@ services:
 script:
 - printenv
 - docker build -t cgiroua/test-repo .
-- echo "1.2" > test.txt
+- echo "1.3" > test.txt
 - pwd && ls
 deploy:
   provider: releases
@@ -16,4 +16,4 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-    branch: master
+    all_branches: true
