@@ -2,13 +2,13 @@ sudo: required
 services:
 - docker
 script:
-- echo "1.3" > test.txt
+- echo "1.3" > test1.txt
 - pwd && ls
 deploy:
   provider: releases
   api_key:
     secure: uz9xg08Ij5dk3UrF4pSGWpgDCsNs9Wm5yYRcpptdMler2DtTpGBmy+QTZ2R/g4TWDYY2Vgh+HmoUm3R+W33lg05QVJ0D8yf8rBgWe2h71bB0krOyciwYYKVVkUfkpc6xw9LKSTxJ+k5bNBEu5I7Z2yX5gCyIFSZtAjMahH77N2uXF/Z53BPd5LOYMrhUwFlt8/j2akaUjg9bVsWZ0AAaAXqu52ZCkdt6TU2Wr6d4enVspvRaIB4L8YgKVgV1YUwISc23YxOmZCVeO4eTZHBCNGTVxTLU/hI5+GHY9S4wcaI1WwUX3hqEsnFG0AdeVaF83YhxI9L3h7sGQDwvplKBM+2ZG2Yr6bdGfWOVnHOYuhcxtpnKkB8kD1u6+i0vD0zAXeulEjsJQTsszZQ3QxyM5NYeX4iWEkIAC21+8VZ+Y2XHoWSJwjfOnthw2QCWTsE3Qw1k1GLj91k5233oIACjJ0wRwBVAFBCIVryOzAuukNSCnDuzESFrGyFnfT45NbPPs0K5C4IvHtAl2bTMRnacm0FhWaWhpoWAFwjshILWu6NzI1j6u2B2g0jhkY+6zKpYPJLsh/s8+77shy/4DcCCPweKV+O39kHc33zs+02KgYd1cMl/RFmIypkKOEUmHtOzJL02+0ZzsRD+niGODbN4B9zwUl7MVWAkFEol8nYeS+Q=
-  file: test.txt
+  file: test1.txt
   draft: false
   overwrite: true
   skip_cleanup: true
