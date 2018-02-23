@@ -12,6 +12,6 @@ deploy:
   draft: false
   overwrite: true
   skip_cleanup: true
-  tags: true
   on:
+    tags: true
     repo: cgiroua-test/travis-tests
