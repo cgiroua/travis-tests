@@ -12,5 +12,3 @@ deploy:
   draft: false
   overwrite: true
   skip_cleanup: true
-  on:
-    tags: true
